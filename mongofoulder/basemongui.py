@@ -2,13 +2,13 @@ import json
 import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
- 
+# Se encarga de meter los datos del JSON 
 # Cargar las variables de entorno
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")  # La URL de conexión a MongoDB Atlas
  
 # Cargar el JSON que deseas subir (puedes usar el archivo 'results.json' que generaste)
-with open("productos.json", "r", encoding="utf-8") as json_file:
+with open("../productos.json", "r", encoding="utf-8") as json_file:
     data = json.load(json_file)
  
 # Conectar a MongoDB Atlas
