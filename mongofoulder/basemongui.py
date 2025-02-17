@@ -7,16 +7,17 @@ from dotenv import load_dotenv
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")  # La URL de conexión a MongoDB Atlas
  
-# Cargar el JSON que deseas subir (puedes usar el archivo 'results.json' que generaste)
-with open("../productos.json", "r", encoding="utf-8") as json_file:
+# Cargar el JSON que deseas subir (pue
+# des usar el archivo 'results.json' que generaste)
+with open("../jsons/productos.json", "r", encoding="utf-8") as json_file:
     data = json.load(json_file)
  
 # Conectar a MongoDB Atlas
 client = MongoClient(MONGO_URI)
  
 # Seleccionar la base de datos y colección
-db = client["dudu-shop"]  # Reemplaza con el nombre de tu base de datos
-collection = db["dudu-components"]  # Reemplaza con el nombre de tu colección
+db = client["dudu-shoping"]  # Reemplaza con el nombre de tu base de datos
+collection = db["dudu-productos"]  # Reemplaza con el nombre de tu colección
  
 # Insertar los documentos del JSON en la colección
 if isinstance(data, list):
