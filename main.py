@@ -1,6 +1,7 @@
 import streamlit as st
 from dotenv import load_dotenv
 import os
+from service.modelopen import generar_respuesta,asistente
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.language.conversations import ConversationAnalysisClient
 from pymongo import MongoClient
@@ -44,13 +45,13 @@ def analyze_conversation(client, query, project='PcShop', deployment='dududespli
         return {"error": str(e)}
 
 def get_catalog_from_db(mongo_client):
-    db = mongo_client['dudu-shoping']
-    collection = db['dudu-productos']
+    db = mongo_client['box']
+    collection = db['productos']
     return list(collection.find())
 
 def get_product_names_and_prices_from_db(mongo_client):
-    db = mongo_client['dudu-shoping']
-    collection = db['dudu-productos']
+    db = mongo_client['box']
+    collection = db['productos']
     return [{"NombreProducto": item.get('NombreProducto', 'Producto sin nombre'), "Precio": item.get('Precio', 'No disponible')} for item in collection.find()]
 
 def main():
@@ -82,10 +83,9 @@ def main():
             top_intent = prediction["topIntent"]
 
             if top_intent == "Curiosidad":
-                response = "Aquí tienes nuestro catálogo:"
-                st.session_state.catalog = get_catalog_from_db(mongo_client)
-            elif top_intent == "Comprar":
-                response = "Si quieres comprar un producto, por favor dinos SOLO el nombre del producto."
+                response = generar_respuesta(user_input)
+            elif top_intent == "Compra":
+                response = asistente(user_input)
             else:
                 response = "No entendí tu solicitud."
 

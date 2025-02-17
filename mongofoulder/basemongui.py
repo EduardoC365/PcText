@@ -2,13 +2,11 @@ import json
 import os
 from pymongo import MongoClient
 from dotenv import load_dotenv
-# Se encarga de meter los datos del JSON 
 # Cargar las variables de entorno
 load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")  # La URL de conexión a MongoDB Atlas
  
-# Cargar el JSON que deseas subir (pue
-# des usar el archivo 'results.json' que generaste)
+# Cargar el JSON que deseas subir (puedes usar el archivo 'results.json' que generaste)
 with open("../jsons/productos.json", "r", encoding="utf-8") as json_file:
     data = json.load(json_file)
  
@@ -16,8 +14,8 @@ with open("../jsons/productos.json", "r", encoding="utf-8") as json_file:
 client = MongoClient(MONGO_URI)
  
 # Seleccionar la base de datos y colección
-db = client["dudu-shoping"]  # Reemplaza con el nombre de tu base de datos
-collection = db["dudu-productos"]  # Reemplaza con el nombre de tu colección
+db = client["box"]  # Reemplaza con el nombre de tu base de datos
+collection = db["productos"]  # Reemplaza con el nombre de tu colección
  
 # Insertar los documentos del JSON en la colección
 if isinstance(data, list):
