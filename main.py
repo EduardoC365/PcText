@@ -44,13 +44,13 @@ def analyze_conversation(client, query, project='PcShop', deployment='dududespli
         return {"error": str(e)}
 
 def get_catalog_from_db(mongo_client):
-    db = mongo_client['dudu-shop']
-    collection = db['dudu-components']
+    db = mongo_client['dudu-shoping']
+    collection = db['dudu-productos']
     return list(collection.find())
 
 def get_product_names_and_prices_from_db(mongo_client):
-    db = mongo_client['dudu-shop']
-    collection = db['dudu-components']
+    db = mongo_client['dudu-shoping']
+    collection = db['dudu-productos']
     return [{"NombreProducto": item.get('NombreProducto', 'Producto sin nombre'), "Precio": item.get('Precio', 'No disponible')} for item in collection.find()]
 
 def main():
